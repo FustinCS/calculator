@@ -48,8 +48,11 @@ body {
 }
 
 .display {
+    display: flex;
+    flex-direction: column;
     background-color: rgb(199, 199, 199);
     min-height: 100px;
+    max-width: 300px;
     border-radius: 5px;
     padding-right: 20px;
     text-align: right;
@@ -62,6 +65,7 @@ body {
 .display-value {
     margin: 0;
     padding: 0;
+    max-width: 290px;
     font-weight: bolder;
     font-size: 48px;
 }

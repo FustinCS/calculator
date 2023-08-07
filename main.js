@@ -48,6 +48,11 @@ function operate() {
         displayVal = multiply(parseFloat(firstNum), parseFloat(secondNum));
     }
     else if (operator === "/") {
+        if(parseFloat(secondNum) === 0) {
+            alert("ERROR: Dividing by 0!");
+            clear();
+            return;
+        }
         displayVal = divide(parseFloat(firstNum), parseFloat(secondNum));
     }
     else {
@@ -59,7 +64,7 @@ function operate() {
 }
 
 function createNumber() {
-   if (displayVal === "0") {
+   if (parseFloat(displayVal) === 0) {
         displayVal = this.textContent;
     }
     else {
@@ -90,6 +95,10 @@ function backspace() {
         displayVal = "0";
     }
     else {
+        displayVal = displayString.substring(0, displayString.length - 1);
+    }
+    displayString = displayVal.toString();
+    if (displayString.charAt(displayString.length-1) === ".") {
         displayVal = displayString.substring(0, displayString.length - 1);
     }
     updateDisplay();
