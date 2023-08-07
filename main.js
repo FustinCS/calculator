@@ -24,14 +24,18 @@ function divide(a, b) {
 }
 
 function storeOp() {
+    operate();
     firstNum = displayVal;
     operator = this.textContent;
     displayVal = "0";
-    console.log(`${firstNum} ${operator}`);
+
+    const equation = document.querySelector(".equation");
+    equation.textContent = `${firstNum} ${operator}`;
 }
 
 function operate() {
     let currentDisplay = document.querySelector(".display-value");
+    const equation = document.querySelector(".equation");
     secondNum = currentDisplay.textContent;
 
     if (operator === "+") {
@@ -49,6 +53,7 @@ function operate() {
     else {
         return;
     }
+    equation.textContent = `${firstNum} ${operator} ${secondNum} =`;
     operator = "";
     updateDisplay();
 }
@@ -68,10 +73,51 @@ function updateDisplay() {
     display.textContent = displayVal;
 }
 
+function clear() {
+    const equation = document.querySelector(".equation");
+
+    firstNum = "0";
+    secondNum = "0";
+    displayVal = "0";
+    operator = "";
+    updateDisplay();
+    equation.textContent = "";
+}
+
+function backspace() {
+    let displayString = displayVal.toString();
+    if (displayString.length === 1) {
+        displayVal = "0";
+    }
+    else {
+        displayVal = displayString.substring(0, displayString.length - 1);
+    }
+    updateDisplay();
+}
+
+function adjustSign() {
+    if (parseFloat(displayVal) === 0) {
+        return;
+    }
+    else if(parseFloat(displayVal) > 0) {
+        displayVal = 0 - displayVal;
+    }
+    else if(parseFloat(displayVal) < 0) {
+        displayVal = 0 - displayVal;
+    }
+    updateDisplay();
+}
+
 const numbers = document.querySelectorAll(".number-btn");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
+const clearBtn = document.querySelector(".clear");
+const backspaceBtn = document.querySelector(".backspace");
+const plusMinus = document.querySelector(".plus-minus");
 
 numbers.forEach((number) => number.addEventListener('click', createNumber));
 operators.forEach((operator) => operator.addEventListener('click', storeOp));
 equals.addEventListener('click', operate);
+clearBtn.addEventListener('click', clear);
+backspaceBtn.addEventListener('click', backspace);
+plusMinus.addEventListener('click', adjustSign);
