@@ -1,13 +1,21 @@
+let firstNum = "0";
+let secondNum = "0";
+let displayVal = "0";
+let operator = "";
+
 function add(a, b) {
-    return a + b;
+    let value = a + b;
+    return Number(value.toFixed(3));
 }
 
 function subtract(a, b) {
-    return a - b;
+    let value = a - b;
+    return Number(value.toFixed(3));
 }
 
 function multiply(a, b) {
-    return a * b;
+    let value = a * b;
+    return Number(value.toFixed(3));
 }
 
 function divide(a, b) {
@@ -15,24 +23,55 @@ function divide(a, b) {
     return Number(value.toFixed(3));
 }
 
-let firstNum = 0;
-let operator;
-let secondNum = 0;
+function storeOp() {
+    firstNum = displayVal;
+    operator = this.textContent;
+    displayVal = "0";
+    console.log(`${firstNum} ${operator}`);
+}
 
-function operate(op, num1, num2) {
-    if (op === "+") {
-        return add(num1, num2);
+function operate() {
+    let currentDisplay = document.querySelector(".display-value");
+    secondNum = currentDisplay.textContent;
+
+    if (operator === "+") {
+        displayVal = add(parseFloat(firstNum), parseFloat(secondNum));
     }
-    else if (op === "-") {
-        return subtract(num1, num2);
+    else if (operator === "-") {
+        displayVal = subtract(parseFloat(firstNum), parseFloat(secondNum));
     }
-    else if (op === "*") {
-        return multiply(num1, num2);
+    else if (operator === "*") {
+        displayVal = multiply(parseFloat(firstNum), parseFloat(secondNum));
     }
-    else if (op === "/") {
-        return divide(num1, num2);
+    else if (operator === "/") {
+        displayVal = divide(parseFloat(firstNum), parseFloat(secondNum));
     }
     else {
         return;
     }
+    operator = "";
+    updateDisplay();
 }
+
+function createNumber() {
+   if (displayVal === "0") {
+        displayVal = this.textContent;
+    }
+    else {
+        displayVal += this.textContent;
+    }
+    updateDisplay();
+}
+
+function updateDisplay() {
+    const display = document.querySelector(".display-value");
+    display.textContent = displayVal;
+}
+
+const numbers = document.querySelectorAll(".number-btn");
+const operators = document.querySelectorAll(".operator");
+const equals = document.querySelector(".equals");
+
+numbers.forEach((number) => number.addEventListener('click', createNumber));
+operators.forEach((operator) => operator.addEventListener('click', storeOp));
+equals.addEventListener('click', operate);
