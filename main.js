@@ -23,6 +23,11 @@ function divide(a, b) {
     return Number(value.toFixed(3));
 }
 
+function modulo(a, b) {
+    let value = a % b;
+    return Number(value.toFixed(3));
+}
+
 function storeOp() {
     operate();
     firstNum = displayVal;
@@ -54,6 +59,9 @@ function operate() {
             return;
         }
         displayVal = divide(parseFloat(firstNum), parseFloat(secondNum));
+    }
+    else if (operator === "%") {
+        displayVal = modulo(parseFloat(firstNum), parseFloat(secondNum));
     }
     else {
         return;
