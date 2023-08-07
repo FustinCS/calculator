@@ -64,7 +64,7 @@ function operate() {
 }
 
 function createNumber() {
-   if (parseFloat(displayVal) === 0) {
+   if (displayVal.toString() === "0") {
         displayVal = this.textContent;
     }
     else {
@@ -117,12 +117,23 @@ function adjustSign() {
     updateDisplay();
 }
 
+function decimal() {
+    if (displayVal.toString().includes(".")) {
+        return;
+    }
+    else {
+        displayVal += ".";
+        updateDisplay();        
+    }
+}
+
 const numbers = document.querySelectorAll(".number-btn");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const clearBtn = document.querySelector(".clear");
 const backspaceBtn = document.querySelector(".backspace");
 const plusMinus = document.querySelector(".plus-minus");
+const decimalBtn = document.querySelector(".decimal");
 
 numbers.forEach((number) => number.addEventListener('click', createNumber));
 operators.forEach((operator) => operator.addEventListener('click', storeOp));
@@ -130,3 +141,4 @@ equals.addEventListener('click', operate);
 clearBtn.addEventListener('click', clear);
 backspaceBtn.addEventListener('click', backspace);
 plusMinus.addEventListener('click', adjustSign);
+decimalBtn.addEventListener('click', decimal);
