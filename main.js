@@ -150,3 +150,15 @@ clearBtn.addEventListener('click', clear);
 backspaceBtn.addEventListener('click', backspace);
 plusMinus.addEventListener('click', adjustSign);
 decimalBtn.addEventListener('click', decimal);
+
+//keyboard support
+function keyPress(e) {
+    let button = document.querySelector(`button[data-key="${e.key}"]`);
+    if (e.key === "Enter") { // Add enter key support for equals
+        button = document.querySelector(`button[data-key="="]`);
+    }
+    
+    if (!button) return;
+    button.click();
+}
+window.addEventListener('keydown', keyPress);
